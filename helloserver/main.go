@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/tranngoclam/hello-grpc/hellopb"
+	pb "github.com/tranngoclam/hello-grpc/hellopb"
 	"google.golang.org/grpc"
 	"net"
 )
@@ -11,9 +11,9 @@ import (
 type server struct {
 }
 
-func (*server) Hello(_ context.Context, request *hellopb.HelloRequest) (*hellopb.HelloResponse, error) {
+func (*server) Hello(_ context.Context, request *pb.HelloRequest) (*pb.HelloResponse, error) {
 	name := request.Name
-	response := &hellopb.HelloResponse{
+	response := &pb.HelloResponse{
 		Greeting: "Hello " + name,
 	}
 	return response, nil
@@ -27,7 +27,7 @@ func main() {
 	}
 	fmt.Printf("server is listening on %v ...", address)
 	s := grpc.NewServer()
-	hellopb.RegisterHelloServiceServer(s, &server{})
+	pb.RegisterHelloServiceServer(s, &server{})
 
 	err = s.Serve(listen)
 	if err != nil {
