@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/tranngoclam/hello-grpc/hellopb"
+	pb "github.com/tranngoclam/hello-grpc/hellopb"
 	"google.golang.org/grpc"
 	"log"
 	"os"
@@ -24,8 +24,8 @@ func main() {
 		}
 	}()
 
-	client := hellopb.NewHelloServiceClient(cc)
-	request := &hellopb.HelloRequest{Name: arg}
+	client := pb.NewHelloServiceClient(cc)
+	request := &pb.HelloRequest{Name: arg}
 	response, err := client.Hello(context.Background(), request)
 	if err != nil {
 		panic(err)
